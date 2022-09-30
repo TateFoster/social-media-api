@@ -4,7 +4,7 @@ const Reactions = require("./Reactions");
 const thoughtSchema = new Schema(
 	{
 		thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
-		createdAt: { type: Date, default: Date.now, get: Date.toString() },
+		createdAt: { type: Date, default: Date.now, get: dateString },
 		username: { type: String, required: true },
 		reactions: [Reactions],
 	},
@@ -20,6 +20,10 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual("reactionCount").get(function () {
 	return this.reactions.length;
 });
+
+function dateString(date) {
+	return date.toString();
+}
 
 const Thoughts = model("thought", thoughtSchema);
 

@@ -7,9 +7,9 @@ module.exports = {
 			.catch((err) => res.status(500).json(err));
 	},
 	createUser(req, res) {
-		Users.create(req.body).then((user) =>
-			res.json(user).catch((err) => res.status(500).json(err))
-		);
+		Users.create(req.body)
+			.then((user) => res.json(user))
+			.catch((err) => res.status(500).json(err));
 	},
 	getOneUser(req, res) {
 		Users.findOne({ _id: req.params.userId })
