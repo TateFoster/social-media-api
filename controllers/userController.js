@@ -1,24 +1,33 @@
 const { Users, Thoughts } = require("../models");
 
 module.exports = {
-	getUsers(req, res) {
-		Users.find()
-			.then((users) => res.json(users))
-			.catch((err) => res.status(500).json(err));
+	async getUsers(req, res) {
+		try {
+			const allUsers = await Users.find();
+			return res.json(allUsers);
+		} catch (err) {
+			res.status(500).json(err);
+		}
 	},
-	createUser(req, res) {
-		Users.create(req.body)
-			.then((user) => res.json(user))
-			.catch((err) => res.status(500).json(err));
+	async createUser(req, res) {
+		try {
+			const newUser = await Users.create(req.body);
+			return res.json(newUser);
+		} catch (err) {
+			res.status(500).json(err);
+		}
 	},
-	getOneUser(req, res) {
-		Users.findOne({ _id: req.params.userId })
-			.then((user) =>
-				!user
-					? res.status(404).json({ message: "No user with this ID" })
-					: res.json(user)
-			)
-			.catch((err) => res.status(500).json(err));
+	async getOneUser(req, res) {
+		try {
+			const oneUser = await Users.findOne({ _id: req.params.userId });
+
+			if (!oneUser) {
+				return res.status(404).json({ message: "No user with this ID" });
+			}
+			return res.json(oneUser);
+		} catch (err) {
+			res.status(500).json(err);
+		}
 	},
 	updateUser(req, res) {
 		Users.findOneAndUpdate(
