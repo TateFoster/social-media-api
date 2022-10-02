@@ -10,6 +10,19 @@ const usernamesPartOne = [
 	"evil",
 	"trapped",
 	"saved",
+	"lost",
+	"dead",
+	"reborn",
+	"kidnapped",
+	"water",
+	"fire",
+	"earth",
+	"wind",
+	"magic",
+	"musical",
+	"zombie",
+	"vampire",
+	"perfect",
 ];
 
 const usernamesPartTwo = [

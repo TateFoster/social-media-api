@@ -16,7 +16,6 @@ connection.once("open", async () => {
 
 	const createdThoughts = await Thoughts.find();
 	const createdUsers = await Users.find();
-	console.log(createdUsers);
 	const updateUsers = async () => {
 		for (let i = 0; i < createdUsers.length; i++) {
 			const sharedName = createdThoughts.filter(
@@ -24,8 +23,6 @@ connection.once("open", async () => {
 					createdThoughts.username === createdUsers[i].username
 			);
 			for (let a = 0; a < sharedName.length; a++) {
-				console.log(createdUsers[i].username);
-				console.log(sharedName[a]._id);
 				await Users.findOneAndUpdate(
 					{ username: createdUsers[i].username },
 					{ $addToSet: { thoughts: sharedName[a]._id } },
