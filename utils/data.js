@@ -1,3 +1,5 @@
+const { ObjectId } = require("bson");
+
 const usernamesPartOne = [
 	"demon",
 	"holy",
@@ -91,6 +93,7 @@ const getRandomReactions = (int) => {
 	let results = [];
 	for (let i = 0; i < int; i++) {
 		results.push({
+			reactionId: new ObjectId(),
 			reactionBody: getRandomArrItem(possibleReactions),
 			username: getRandomArrItem(users).username,
 		});
