@@ -11,25 +11,32 @@ connection.once("open", async () => {
 
 	const thoughts = getRandomThoughts(20);
 
-	await Thoughts.collection.insertMany(thoughts);
 	await Users.collection.insertMany(users);
+	await Thoughts.collection.insertMany(thoughts);
 
 	const createdThoughts = await Thoughts.find();
-	console.log(createdThoughts);
-	const updateUsers = () => {
-		for (let i = 0; i < createdThoughts.length; i++) {
-			if (createdThoughts[i].username === users.username) {
-				Users.findOneAndUpdate(
-					{ username: createdThoughts[i].username },
-					{ $addToSet: { thoughts: createdThoughts[i]._id } },
+	const createdUsers = await Users.find();
+	console.log(createdUsers);
+	const updateUsers = async () => {
+		for (let i = 0; i < createdUsers.length; i++) {
+			const sharedName = createdThoughts.filter(
+				(createdThoughts) =>
+					createdThoughts.username === createdUsers[i].username
+			);
+			for (let a = 0; a < sharedName.length; a++) {
+				console.log(createdUsers[i].username);
+				console.log(sharedName[a]._id);
+				await Users.findOneAndUpdate(
+					{ username: createdUsers[i].username },
+					{ $addToSet: { thoughts: sharedName[a]._id } },
 					{ new: true }
 				);
 			}
-			return;
 		}
 	};
 
-	updateUsers();
+	const updates = await updateUsers();
+
 	console.table(users);
 	console.table(thoughts);
 	console.info("Seeding complete! 🌱");

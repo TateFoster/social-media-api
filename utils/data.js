@@ -6,7 +6,7 @@ const usernamesPartOne = [
 	"redeemed",
 	"forgotten",
 	"rejected",
-	"war",
+	"warrior",
 	"evil",
 	"trapped",
 	"saved",
@@ -59,8 +59,6 @@ for (let i = 0; i < 10; i++) {
 	users.push({
 		username: username,
 		email: email,
-		thoughts: [],
-		friends: [],
 	});
 }
 
